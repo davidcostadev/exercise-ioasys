@@ -1,0 +1,21 @@
+{
+  "name": "exercise-ioasys",
+  "version": "1.0.0",
+  "description": "exercise ioasys",
+  "main": "src/main.js",
+  "author": "David Costa <davidcostadev@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "env-cmd nodemon src/main",
+    "start": "env-cmd node src/main"
+  },
+  "devDependencies": {
+    "env-cmd": "^10.1.0",
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "sequelize": "^5.21.5"
+  }
+}
