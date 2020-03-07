@@ -1,19 +1,23 @@
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
+const configs = require('../config/database.js');
 
 const basename = path.basename(__filename);
+
 const env = process.env.NODE_ENV || 'development';
 
-const config = {};
+const config = configs[env];
 const db = {};
 
-const sequelize = new Sequelize(process.env.DATABASE, config);
+const sequelize = new Sequelize(config.database, config.username, config.password, config);
 
-fs.readdirSync(`${__dirname}/models`)
+const modelBase = `${__dirname}/models`;
+
+fs.readdirSync(modelBase)
   .filter(file => file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js')
   .forEach(file => {
-    const model = sequelize.import(path.join(__dirname, file));
+    const model = sequelize.import(path.join(modelBase, file));
     db[model.name] = model;
   });
 

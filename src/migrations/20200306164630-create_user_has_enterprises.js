@@ -9,17 +9,18 @@ module.exports = {
           primaryKey: true,
           type: Sequelize.INTEGER,
         },
-        user_id: {
+        UserId: {
+          field: 'user_id',
           type: Sequelize.INTEGER,
           allowNull: false,
         },
-        enterprise_id: {
+        EnterpriseId: {
+          field: 'enterprise_id',
           type: Sequelize.INTEGER,
           allowNull: false,
         },
       },
       {
-        underscored: true,
         timestamps: false,
       },
     );
@@ -45,6 +46,8 @@ module.exports = {
         table: 'enterprises',
         field: 'id',
       },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     });
   },
 

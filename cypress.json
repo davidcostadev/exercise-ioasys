@@ -1,0 +1,5 @@
+{
+  "pluginsFile": "tests/e2e/plugins.js",
+  "baseUrl": "http://localhost:3000",
+  "port": 4000
+}

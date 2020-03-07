@@ -1,0 +1,15 @@
+{
+  "plugins": ["cypress"],
+  "env": {
+    "mocha": true,
+    "cypress/globals": true
+  },
+  "rules": {
+    "strict": "off",
+    "jest/no-disabled-tests": "off",
+    "jest/no-focused-tests": "off",
+    "jest/no-identical-title": "off",
+    "jest/prefer-to-have-length": "off",
+    "jest/valid-expect": "off"
+  }
+}

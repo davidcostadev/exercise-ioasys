@@ -77,8 +77,6 @@ module.exports = {
       updated_at: new Date(),
     });
 
-    console.log({ user, typeA, typeB, enterpriseA, enterpriseB });
-
     await queryInterface.bulkInsert('user_has_enterprises', [
       {
         user_id: user,
