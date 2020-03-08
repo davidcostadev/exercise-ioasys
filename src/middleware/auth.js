@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const getToken = req => {
   const { headers } = req;
   if (typeof headers['access-token'] !== 'undefined' && typeof headers.client !== 'undefined') {
-    const [first, last] = headers['access-token'].split('-');
+    const [first, last] = headers['access-token'].split('.');
 
     return [first, headers.client, last].join('.');
   }

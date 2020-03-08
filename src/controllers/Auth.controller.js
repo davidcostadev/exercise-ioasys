@@ -55,7 +55,7 @@ const signIn = async (req, res) => {
   const token = jwt.sign({ userId: user.id }, process.env.SECRET_KEY);
   const parts = token.split('.');
   const client = parts.splice(1, 1);
-  const accessToken = parts.join('-');
+  const accessToken = parts.join('.');
 
   return res
     .set('access-token', accessToken)

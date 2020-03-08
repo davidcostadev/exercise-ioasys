@@ -51,7 +51,13 @@ describe('Enterprise', () => {
   });
 
   it('/enterprises', () => {
-    cy.request('/api/v1/enterprises').then(response => {
+    cy.request({
+      url: '/api/v1/enterprises',
+      headers: {
+        'access-token': accessToken,
+        client,
+      },
+    }).then(response => {
       expect(response.body).toEqual({
         enterprises: [
           {
@@ -100,7 +106,13 @@ describe('Enterprise', () => {
   });
 
   it('/enterprises with enterprise_types filter', () => {
-    cy.request('/api/v1/enterprises?enterprise_types=1').then(response => {
+    cy.request({
+      url: '/api/v1/enterprises?enterprise_types=1',
+      headers: {
+        'access-token': accessToken,
+        client,
+      },
+    }).then(response => {
       expect(response.body).toEqual({
         enterprises: [
           {
@@ -129,7 +141,13 @@ describe('Enterprise', () => {
   });
 
   it('/enterprises with name filter', () => {
-    cy.request('/api/v1/enterprises?name=aQm').then(response => {
+    cy.request({
+      url: '/api/v1/enterprises?name=aQm',
+      headers: {
+        'access-token': accessToken,
+        client,
+      },
+    }).then(response => {
       expect(response.body).toEqual({
         enterprises: [
           {
@@ -158,8 +176,13 @@ describe('Enterprise', () => {
   });
 
   it('/enterprises with filters', () => {
-    cy.server();
-    cy.request('/api/v1/enterprises?enterprise_types=1&name=aQm').then(response => {
+    cy.request({
+      url: '/api/v1/enterprises?enterprise_types=1&name=aQm',
+      headers: {
+        'access-token': accessToken,
+        client,
+      },
+    }).then(response => {
       expect(response.body).toEqual({
         enterprises: [
           {
