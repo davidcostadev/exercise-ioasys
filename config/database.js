@@ -12,8 +12,8 @@ module.exports = {
     database: 'exercise_test',
     host: '127.0.0.1',
     dialect: 'postgres',
-    logging: console.log,
-    logQueryParameters: true,
+    // logging: console.log,
+    // logQueryParameters: true,
   },
   production: {
     use_env_variable: true,

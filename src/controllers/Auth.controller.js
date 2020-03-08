@@ -38,7 +38,7 @@ const signIn = async (req, res) => {
       'super_angel',
     ],
   });
-  console.log(user);
+
   return res.json({
     investor: {
       ...user.toJSON(),

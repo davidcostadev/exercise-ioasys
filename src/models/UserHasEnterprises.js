@@ -52,9 +52,9 @@ module.exports = (sequelize, DataTypes) => {
     // });
   };
 
-  UserHasEnterprises.beforeCreate(data => {
-    console.log('beforeCreate', data.dataValues);
-  });
+  // UserHasEnterprises.beforeCreate(data => {
+  //   console.log('beforeCreate', data.dataValues);
+  // });
 
   return UserHasEnterprises;
 };
