@@ -53,6 +53,20 @@ module.exports = {
         type: Sequelize.DOUBLE,
         allowNull: false,
       },
+      ownEnterprise: {
+        field: 'own_enterprise',
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+      },
+      shares: {
+        type: Sequelize.DOUBLE,
+        allowNull: false,
+      },
+      ownShares: {
+        field: 'own_shares',
+        type: Sequelize.DOUBLE,
+        allowNull: false,
+      },
       createdAt: {
         field: 'created_at',
         allowNull: false,

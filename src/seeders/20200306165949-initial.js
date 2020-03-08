@@ -55,6 +55,9 @@ module.exports = {
       photo: faker.image.avatar(),
       value: faker.finance.amount(),
       share_price: faker.finance.amount(),
+      own_enterprise: faker.random.boolean(),
+      shares: faker.finance.amount(),
+      own_shares: faker.finance.amount(),
       created_at: new Date(),
       updated_at: new Date(),
     });
@@ -73,6 +76,9 @@ module.exports = {
       photo: faker.image.avatar(),
       value: faker.finance.amount(),
       share_price: faker.finance.amount(),
+      own_enterprise: faker.random.boolean(),
+      shares: faker.finance.amount(),
+      own_shares: faker.finance.amount(),
       created_at: new Date(),
       updated_at: new Date(),
     });

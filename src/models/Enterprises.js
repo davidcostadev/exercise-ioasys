@@ -48,6 +48,20 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DOUBLE,
         allowNull: false,
       },
+      ownEnterprise: {
+        field: 'own_enterprise',
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      shares: {
+        type: DataTypes.DOUBLE,
+        allowNull: false,
+      },
+      ownShares: {
+        field: 'own_shares',
+        type: DataTypes.DOUBLE,
+        allowNull: false,
+      },
       createdAt: {
         field: 'created_at',
         allowNull: false,

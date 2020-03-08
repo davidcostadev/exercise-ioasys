@@ -1,10 +1,9 @@
 // const omit = require('lodash.omit');
-const { Enterprises } = require('../database');
+const { Enterprises, EnterpriseTypes } = require('../database');
 // const { Users, UserHasEnterprises, Enterprises, EnterpriseTypes } = require('../database');
 
 const show = async (req, res) => {
   const enterpriseId = req.params.id;
-  console.log({ enterpriseId });
 
   const enterprise = await Enterprises.findByPk(enterpriseId, {
     attributes: [
@@ -21,6 +20,16 @@ const show = async (req, res) => {
       'share_price',
       'city',
       'country',
+      'own_enterprise',
+      'shares',
+      'own_shares',
+    ],
+    include: [
+      {
+        model: EnterpriseTypes,
+        attributes: ['id', ['name', 'enterprise_type_name']],
+        as: 'enterprise_type',
+      },
     ],
   });
   res.json({
