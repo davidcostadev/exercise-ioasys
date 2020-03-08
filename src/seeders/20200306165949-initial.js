@@ -43,7 +43,7 @@ module.exports = {
     const enterpriseAUserName = faker.internet.userName();
     const enterpriseA = await seed('enterprises', {
       type_id: typeA,
-      name: faker.company.companyName(),
+      name: 'AQM S.A.',
       email: faker.internet.email(),
       facebook: `https://facebook.com/${enterpriseAUserName}`,
       twitter: `https://twitter.com/${enterpriseAUserName}`,

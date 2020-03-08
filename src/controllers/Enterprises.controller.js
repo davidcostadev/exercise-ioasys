@@ -1,6 +1,5 @@
-// const omit = require('lodash.omit');
+const { Op } = require('sequelize');
 const { Enterprises, EnterpriseTypes } = require('../database');
-// const { Users, UserHasEnterprises, Enterprises, EnterpriseTypes } = require('../database');
 
 const show = async (req, res) => {
   const enterpriseId = req.params.id;
@@ -36,63 +35,52 @@ const show = async (req, res) => {
     enterprise,
     success: true,
   });
-  // const user = await Users.findOne({
-  //   where: {
-  //     id: req.userID,
-  //   },
-  //   include: [
-  //     {
-  //       model: UserHasEnterprises,
-  //       as: 'portfolio',
-  //       include: [
-  //         {
-  //           model: Enterprises,
-  //           attributes: ['id', ['name', 'enterprise_name'], 'sharePrice'],
-  //           as: 'enterprises',
-  //           include: [
-  //             {
-  //               model: EnterpriseTypes,
-  //               attributes: ['id', ['name', 'enterprise_type_name']],
-  //               as: 'enterprise_type',
-  //             },
-  //           ],
-  //         },
-  //       ],
-  //     },
-  //   ],
-  //   attributes: [
-  //     'id',
-  //     ['name', 'investor_name'],
-  //     'email',
-  //     'city',
-  //     'country',
-  //     'balance',
-  //     'photo',
-  //     'first_access',
-  //     'super_angel',
-  //   ],
-  // });
-  // return res.json({
-  //   investor: {
-  //     ...user.toJSON(),
-  //     portfolio_value: user.portfolio.reduce((acc, cur) => acc + cur.enterprises.sharePrice, 0),
-  //     portfolio: {
-  //       enterprises: user.portfolio.map(it =>
-  //         omit(
-  //           {
-  //             ...it.enterprises.toJSON(),
-  //           },
-  //           ['sharePrice'],
-  //         ),
-  //       ),
-  //       enterprises_number: user.portfolio.length,
-  //     },
-  //   },
-  //   enterprise: null,
-  //   success: true,
-  // });
+};
+
+const list = async (req, res) => {
+  const where = {};
+
+  if (req.query.enterprise_types) {
+    where.TypeId = req.query.enterprise_types;
+  }
+
+  if (req.query.name) {
+    where.name = {
+      [Op.iLike]: `%${req.query.name}%`,
+    };
+  }
+
+  const enterprises = await Enterprises.findAll({
+    where,
+    attributes: [
+      'id',
+      ['email', 'email_enterprise'],
+      ['name', 'enterprise_name'],
+      'description',
+      'facebook',
+      'linkedin',
+      'phone',
+      'photo',
+      'twitter',
+      'value',
+      'share_price',
+      'city',
+      'country',
+      'own_enterprise',
+    ],
+    include: [
+      {
+        model: EnterpriseTypes,
+        attributes: ['id', ['name', 'enterprise_type_name']],
+        as: 'enterprise_type',
+      },
+    ],
+  });
+
+  res.json({ enterprises });
 };
 
 module.exports = {
   show,
+  list,
 };
