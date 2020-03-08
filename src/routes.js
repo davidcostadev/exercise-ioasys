@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const Auth = require('./controllers/Auth.controller');
 const Enterprises = require('./controllers/Enterprises.controller');
+const authMiddleware = require('./middleware/auth');
 
 const router = Router();
 
@@ -30,8 +31,8 @@ const errorHandler = controller => async (req, res) => {
 
 router.get('/', (req, res) => res.send('OK'));
 
-router.get(`/api/${apiVersion}/users/auth/sign_in`, getUser, errorHandler(Auth.signIn));
-router.get(`/api/${apiVersion}/enterprises/:id`, errorHandler(Enterprises.show));
-router.get(`/api/${apiVersion}/enterprises`, errorHandler(Enterprises.list));
+router.post(`/api/${apiVersion}/users/auth/sign_in`, getUser, errorHandler(Auth.signIn));
+router.get(`/api/${apiVersion}/enterprises/:id`, authMiddleware, errorHandler(Enterprises.show));
+router.get(`/api/${apiVersion}/enterprises`, authMiddleware, errorHandler(Enterprises.list));
 
 module.exports = router;

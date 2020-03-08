@@ -1,9 +1,27 @@
 const expect = require('expect');
 
-describe('Auth', () => {
+describe('Enterprise', () => {
+  let accessToken;
+  let client;
+
+  beforeEach(async () => {
+    const response = await cy.request('POST', '/api/v1/users/auth/sign_in', {
+      email: 'testeapple@ioasys.com.br',
+      password: '12341234',
+    });
+
+    accessToken = response.headers['access-token'];
+    client = response.headers.client;
+  });
+
   it('/enterprises/1 should return investor with portfolio', () => {
-    cy.server();
-    cy.request('/api/v1/enterprises/1').then(response => {
+    cy.request({
+      url: '/api/v1/enterprises/1',
+      headers: {
+        'access-token': accessToken,
+        client,
+      },
+    }).then(response => {
       expect(response.body).toEqual({
         enterprise: {
           id: expect.any(Number),
@@ -33,7 +51,6 @@ describe('Auth', () => {
   });
 
   it('/enterprises', () => {
-    cy.server();
     cy.request('/api/v1/enterprises').then(response => {
       expect(response.body).toEqual({
         enterprises: [
@@ -83,7 +100,6 @@ describe('Auth', () => {
   });
 
   it('/enterprises with enterprise_types filter', () => {
-    cy.server();
     cy.request('/api/v1/enterprises?enterprise_types=1').then(response => {
       expect(response.body).toEqual({
         enterprises: [
@@ -113,7 +129,6 @@ describe('Auth', () => {
   });
 
   it('/enterprises with name filter', () => {
-    cy.server();
     cy.request('/api/v1/enterprises?name=aQm').then(response => {
       expect(response.body).toEqual({
         enterprises: [

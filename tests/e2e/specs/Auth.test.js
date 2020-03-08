@@ -2,8 +2,17 @@ const expect = require('expect');
 
 describe('Auth', () => {
   it('/sign_in should return investor with portfolio', () => {
-    cy.server();
-    cy.request('/api/v1/users/auth/sign_in').then(response => {
+    cy.request('POST', '/api/v1/users/auth/sign_in', {
+      email: 'testeapple@ioasys.com.br',
+      password: '12341234',
+    }).then(response => {
+      expect(response.headers).toHaveProperty('access-token');
+      expect(response.headers).toHaveProperty('client');
+      expect(response.headers).toHaveProperty('uid');
+      expect(response.headers.uid).toBe('testeapple@ioasys.com.br');
+      // access-token
+      // client
+      // uid
       expect(response.body).toEqual({
         investor: {
           id: 1,

@@ -31,30 +31,13 @@ module.exports = (sequelize, DataTypes) => {
     },
   );
 
-  UserHasEnterprises.associate = ({ Enterprises, Users }) => {
+  UserHasEnterprises.associate = ({ Enterprises }) => {
     UserHasEnterprises.belongsTo(Enterprises, {
       foreignKey: 'id',
       sourceKey: 'enterprise_id',
       as: 'enterprises',
     });
-    // UserHasEnterprises.belongsTo(Users, {
-    //   foreignKey: 'user_id',
-    //   sourceKey: 'user_id',
-    //   // as: 'users',
-    // });
-    //   UserHasEnterprises.hasOne(Users, {
-    //     foreignKey: 'id',
-    //     sourceKey: 'user_id',
-    //   });
-    // console.log(UserHasEnterprises);
-    // UserHasEnterprises.hasOne(Users, {
-    //   as: 'users',
-    // });
   };
-
-  // UserHasEnterprises.beforeCreate(data => {
-  //   console.log('beforeCreate', data.dataValues);
-  // });
 
   return UserHasEnterprises;
 };

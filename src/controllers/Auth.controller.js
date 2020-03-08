@@ -1,10 +1,14 @@
 const omit = require('lodash.omit');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const { Users, UserHasEnterprises, Enterprises, EnterpriseTypes } = require('../database');
 
 const signIn = async (req, res) => {
+  const { email, password } = req.body;
+
   const user = await Users.findOne({
     where: {
-      id: req.userId,
+      email,
     },
     include: [
       {
@@ -36,28 +40,46 @@ const signIn = async (req, res) => {
       'photo',
       'first_access',
       'super_angel',
+      'password',
     ],
   });
 
-  return res.json({
-    investor: {
-      ...user.toJSON(),
-      portfolio_value: user.portfolio.reduce((acc, cur) => acc + cur.enterprises.sharePrice, 0),
-      portfolio: {
-        enterprises: user.portfolio.map(it =>
-          omit(
-            {
-              ...it.enterprises.toJSON(),
-            },
-            ['sharePrice'],
+  if (!user) {
+    throw new Error('Authentication failed. User not found.');
+  }
+
+  if (!bcrypt.compareSync(password, user.password)) {
+    throw new Error('Authentication failed. Wrong password.');
+  }
+  const uid = user.email;
+  const token = jwt.sign({ userId: user.id }, process.env.SECRET_KEY);
+  const parts = token.split('.');
+  const client = parts.splice(1, 1);
+  const accessToken = parts.join('-');
+
+  return res
+    .set('access-token', accessToken)
+    .set('client', client)
+    .set('uid', uid)
+    .json({
+      investor: {
+        ...omit(user.toJSON(), ['password']),
+        portfolio_value: user.portfolio.reduce((acc, cur) => acc + cur.enterprises.sharePrice, 0),
+        portfolio: {
+          enterprises: user.portfolio.map(it =>
+            omit(
+              {
+                ...it.enterprises.toJSON(),
+              },
+              ['sharePrice'],
+            ),
           ),
-        ),
-        enterprises_number: user.portfolio.length,
+          enterprises_number: user.portfolio.length,
+        },
       },
-    },
-    enterprise: null,
-    success: true,
-  });
+      enterprise: null,
+      success: true,
+    });
 };
 
 module.exports = {
