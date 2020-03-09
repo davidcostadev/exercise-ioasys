@@ -9,6 +9,12 @@
 - `npm install`
 - `cp .env.example .env`
 
+## Production
+
+- Create the database ex: `psql -U root -c "create database exercise_prod"`
+- `npm run preprod:db:migrate`
+- `npm run start`
+
 ## Development
 
 - `docker-compose up -d`

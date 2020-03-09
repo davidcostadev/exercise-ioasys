@@ -11,7 +11,7 @@
   },
   "scripts": {
     "dev": "env-cmd nodemon src/main",
-    "start": "env-cmd node src/main",
+    "start": "cross-env NODE_ENV=production env-cmd node src/main",
     "test": "cross-env NODE_ENV=test start-server-and-test start http://localhost:3000 cy:run",
     "jest": "jest",
     "cy:run": "cypress run",
@@ -20,6 +20,7 @@
     "db:create": "sequelize db:create",
     "db:migrate": "sequelize db:migrate",
     "db:seed": "sequelize db:seed:all",
+    "preprod:db:migrate": "cross-env NODE_ENV=production env-cmd npm run db:migrate",
     "pretest:sequelize": "cross-env NODE_ENV=test npm run sequelize",
     "pretest:db:create": "cross-env NODE_ENV=test npm run db:create",
     "pretest:db:migrate": "cross-env NODE_ENV=test npm run db:migrate",
@@ -57,6 +58,7 @@
     "lodash.omit": "^4.5.0",
     "morgan": "^1.9.1",
     "pg": "^7.18.2",
+    "pg-hstore": "^2.3.3",
     "sequelize": "^5.21.5",
     "sequelize-cli": "^5.5.1"
   }
