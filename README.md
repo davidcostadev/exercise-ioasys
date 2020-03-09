@@ -1,5 +1,9 @@
 # Exercise ioasys
 
+## Requirements
+
+- nodejs 12
+
 ## Common steps
 
 - `npm install`
@@ -15,7 +19,7 @@
 
 ## Testing
 
-- `docker run --rm --name postgres-test -e POSTGRES_USER=root -e POSTGRES_PASSWORD=123 -p 5432:5432 -d postgres`
+- `docker run --rm --name postgres-test -e POSTGRES_USER=root -e POSTGRES_PASSWORD=123 -p 5432:5432 -d postgres:latest`
 - `npm run test`
 - `docker stop postgres-test`
 
