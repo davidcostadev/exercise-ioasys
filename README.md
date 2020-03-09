@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- nodejs 12
+- **Nodejs** 12
 
 ## Common steps
 
@@ -27,15 +27,19 @@
 
 | METHOD   | URL                                 | params/queries                                 |
 | -------- | ----------------------------------- | ---------------------------------------------- |
-| **POST** | `/api/v1/users/sign_in`             | `{ email: string, password: string}`           |
+| **POST** | `/api/v1/users/auth/sign_in`        | `{ email: string, password: string}`           |
 | **GET**  | `/api/v1/enterprises`               | `{ enterprise_types?: number, name?: string }` |
 | **GET**  | `/api/v1/enterprises/:enterpriseId` | `enterpriseId: number`                         |
+
+## Diagram
+
+[![diagram](/database_diagram.png)](database_diagram.png)
 
 ## Helpers
 
 ### Accessing postgres
 
-- `docker-compose exec db psql -d exercise -U root`
+- `docker-compose exec db psql -d exercise_dev -U root`
 
 ## Author
 
