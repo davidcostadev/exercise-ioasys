@@ -34,7 +34,6 @@ const show = async ({ enterpriseId }) => {
 };
 
 const list = async ({ query = {} }) => {
-  console.log('list', JSON.stringify(query, null, 2));
   const where = {};
 
   if (query.enterprise_types) {

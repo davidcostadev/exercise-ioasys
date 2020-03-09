@@ -24,7 +24,7 @@
     "pretest:db:create": "cross-env NODE_ENV=test npm run db:create",
     "pretest:db:migrate": "cross-env NODE_ENV=test npm run db:migrate",
     "pretest:db:seed": "cross-env NODE_ENV=test npm run db:seed",
-    "pretest": "npm run pretest:db:create && npm run pretest:db:migrate && npm run pretest:db:seed",
+    "pretest": "npm run lint && npm run pretest:db:create && npm run pretest:db:migrate && npm run pretest:db:seed",
     "lint:format": "prettier --check '**/*.{js,json}'",
     "lint:js": "eslint src/** tests/**",
     "lint": "npm run lint:format && npm run lint:js"
