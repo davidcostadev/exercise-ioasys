@@ -1,5 +1,7 @@
 node_modules
+coverage
 .vscode
 .DS_Store
 .env
 tests/e2e/videos/*.mp4
+*.log
