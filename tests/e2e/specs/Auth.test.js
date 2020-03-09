@@ -10,9 +10,7 @@ describe('Auth', () => {
       expect(response.headers).toHaveProperty('client');
       expect(response.headers).toHaveProperty('uid');
       expect(response.headers.uid).toBe('testeapple@ioasys.com.br');
-      // access-token
-      // client
-      // uid
+
       expect(response.body).toEqual({
         investor: {
           id: 1,
@@ -50,6 +48,34 @@ describe('Auth', () => {
         enterprise: null,
         success: true,
       });
+    });
+  });
+
+  it('/sign_in should error on wrong email', () => {
+    cy.request({
+      method: 'POST',
+      url: '/api/v1/users/auth/sign_in',
+      failOnStatusCode: false,
+      body: {
+        email: 'davidcosta@ioasys.com.br',
+        password: '12341234',
+      },
+    }).then(response => {
+      expect(response.body.error).toBe('Authentication failed. User not found.');
+    });
+  });
+
+  it('/sign_in should error on wrong password', () => {
+    cy.request({
+      method: 'POST',
+      url: '/api/v1/users/auth/sign_in',
+      failOnStatusCode: false,
+      body: {
+        email: 'testeapple@ioasys.com.br',
+        password: 'dorime',
+      },
+    }).then(response => {
+      expect(response.body.error).toBe('Authentication failed. Wrong password.');
     });
   });
 });

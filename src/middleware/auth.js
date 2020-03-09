@@ -1,9 +1,11 @@
 const jwt = require('jsonwebtoken');
 
-const getToken = req => {
+const getToken = (req, res) => {
   const { headers } = req;
   if (typeof headers['access-token'] !== 'undefined' && typeof headers.client !== 'undefined') {
     const [first, last] = headers['access-token'].split('.');
+
+    res.set('access-token', headers['access-token']).set('client', headers.client);
 
     return [first, headers.client, last].join('.');
   }
@@ -12,7 +14,7 @@ const getToken = req => {
 };
 
 const checkAuth = (req, res, next) => {
-  const token = getToken(req);
+  const token = getToken(req, res);
   if (!token) {
     res.status(403).send({
       message: 'No token provided',

@@ -4,14 +4,16 @@ describe('Enterprise', () => {
   let accessToken;
   let client;
 
-  beforeEach(async () => {
-    const response = await cy.request('POST', '/api/v1/users/auth/sign_in', {
+  beforeEach(() => {
+    cy.request('POST', '/api/v1/users/auth/sign_in', {
       email: 'testeapple@ioasys.com.br',
       password: '12341234',
-    });
+    }).as('login');
 
-    accessToken = response.headers['access-token'];
-    client = response.headers.client;
+    cy.get('@login').should(response => {
+      accessToken = response.headers['access-token'];
+      client = response.headers.client;
+    });
   });
 
   it('/enterprises/1 should return investor with portfolio', () => {
@@ -21,7 +23,9 @@ describe('Enterprise', () => {
         'access-token': accessToken,
         client,
       },
-    }).then(response => {
+    }).as('show');
+
+    cy.get('@show').should(response => {
       expect(response.body).toEqual({
         enterprise: {
           id: expect.any(Number),
@@ -57,7 +61,9 @@ describe('Enterprise', () => {
         'access-token': accessToken,
         client,
       },
-    }).then(response => {
+    }).as('enterprises');
+
+    cy.get('@enterprises').should(response => {
       expect(response.body).toEqual({
         enterprises: [
           {
@@ -112,7 +118,9 @@ describe('Enterprise', () => {
         'access-token': accessToken,
         client,
       },
-    }).then(response => {
+    }).as('enterprises_enterprise_types');
+
+    cy.get('@enterprises_enterprise_types').should(response => {
       expect(response.body).toEqual({
         enterprises: [
           {
@@ -147,7 +155,9 @@ describe('Enterprise', () => {
         'access-token': accessToken,
         client,
       },
-    }).then(response => {
+    }).as('enterprises_name');
+
+    cy.get('@enterprises_name').should(response => {
       expect(response.body).toEqual({
         enterprises: [
           {
@@ -182,7 +192,9 @@ describe('Enterprise', () => {
         'access-token': accessToken,
         client,
       },
-    }).then(response => {
+    }).as('enterprises_with_filters');
+
+    cy.get('@enterprises_with_filters').should(response => {
       expect(response.body).toEqual({
         enterprises: [
           {
