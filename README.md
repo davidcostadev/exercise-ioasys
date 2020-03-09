@@ -3,6 +3,7 @@
 ## Requirements
 
 - **Nodejs** 12
+- **Docker** 19.03.5 (recommended)
 
 ## Common steps
 
@@ -11,7 +12,7 @@
 
 ## Production
 
-- Create the database ex: `psql -U root -c "create database exercise_prod"`
+- Create the database ex: `psql -c "create database exercise_prod"`
 - `npm run preprod:db:migrate`
 - `npm run start`
 
@@ -25,7 +26,7 @@
 
 ## Testing
 
-- `docker run --rm --name postgres-test -e POSTGRES_USER=root -e POSTGRES_PASSWORD=123 -p 5432:5432 -d postgres:latest`
+- `docker run --rm --name postgres-test -e POSTGRES_PASSWORD=123 -p 5432:5432 -d postgres:latest`
 - `npm run test`
 - `docker stop postgres-test`
 
@@ -43,9 +44,9 @@
 
 ## Helpers
 
-### Accessing postgres
+### Accessing postgres on docker-compose
 
-- `docker-compose exec db psql -d exercise_dev -U root`
+- `docker-compose exec db psql -d exercise_dev`
 
 ## Author
 
