@@ -23,15 +23,5 @@ module.exports = (sequelize, DataTypes) => {
     },
   );
 
-  EnterpriseTypes.associate = ({ Enterprises }) => {
-    // EnterpriseTypes.hasMany(Enterprises, {
-    //   foreignKey: 'type_id',
-    // });
-    // Enterprises.hasMany(UserHasEnterprises, {
-    //   as: 'enterprises',
-    //   foreignKey: 'enterprises_id',
-    // });
-  };
-
   return EnterpriseTypes;
 };

@@ -79,22 +79,11 @@ module.exports = (sequelize, DataTypes) => {
     },
   );
 
-  Enterprises.associate = ({ Users, EnterpriseTypes }) => {
-    // Enterprises.belongsToMany(Users, {
-    //   through: 'UserHasEnterprises',
-    //   as: 'users',
-    //   foreignKey: 'enterprise_id',
-    //   sourceKey: 'id',
-    // });
+  Enterprises.associate = ({ EnterpriseTypes }) => {
     Enterprises.belongsTo(EnterpriseTypes, {
       foreignKey: 'type_id',
       as: 'enterprise_type',
-      // sourceKey: 'type_id',
     });
-    // Enterprises.hasMany(UserHasEnterprises, {
-    //   as: 'enterprises',
-    //   foreignKey: 'enterprises_id',
-    // });
   };
 
   return Enterprises;
