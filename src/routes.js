@@ -5,7 +5,7 @@ const authMiddleware = require('./middleware/auth');
 
 const router = Router();
 
-const apiVersion = 'v1';
+const apiVersion = process.env.API_VERSION;
 
 const getUser = (req, res, next) => {
   req.userId = 1;
